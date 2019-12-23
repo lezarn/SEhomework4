@@ -1,6 +1,10 @@
 package com.company;
 
 
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,6 +31,24 @@ public class letterGrade {
 
     public static void main(String[] args) {
 
+        Result TestResult = JUnitCore.runClasses(letterGradeTestCase.class);
+
+        for(Failure failure: TestResult.getFailures()){
+            System.out.println(failure.toString());
+        }
+
+        if(TestResult.wasSuccessful())
+            System.out.println("letterGradeTestCase is passed");
+
+        TestResult = JUnitCore.runClasses(letterGradeBoundaryTest.class);
+
+        for(Failure failure: TestResult.getFailures()){
+            System.out.println(failure.toString());
+        }
+
+        if(TestResult.wasSuccessful())
+            System.out.println("letterGradeBoundaryTest is passed");
+
         System.out.print("Enter the score = ");
         try {
             InputStreamReader isr = new InputStreamReader(System.in);
@@ -39,6 +61,7 @@ public class letterGrade {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 
     }
